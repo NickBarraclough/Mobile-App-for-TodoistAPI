@@ -20,6 +20,20 @@
             android:background="?attr/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
 
+        <EditText
+            android:id="@+id/et_search_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:hint="@string/search_box_hint"/>
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/search_button_text"/>
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -50,27 +64,35 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/nav_drawer"
-        android:layout_width="300dp"
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nv_nav_drawer"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        android:background="@color/white">
+        app:menu="@menu/nav_drawer"
+        app:headerLayout="@layout/nav_drawer_header"/>
+<!--    <LinearLayout-->
+<!--        android:id="@+id/nav_drawer"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_gravity="start"-->
+<!--        android:fitsSystemWindows="true"-->
+<!--        android:background="@color/white">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Menu"
-            android:layout_margin="6dp"/>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Menu"-->
+<!--            android:layout_margin="6dp"/>-->
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_nav_drawer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/rv_nav_drawer"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"/>-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
 </androidx.drawerlayout.widget.DrawerLayout>
 

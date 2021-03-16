@@ -15,7 +15,7 @@ public class LikedSongsRepository {
         this.dao = db.likedSongsDAO();
     }
 
-    public void insertLikedSong(LikedSongs song) {
+    public void insertLikedSong(LikedSong song) {
         AppDatabase.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -24,7 +24,20 @@ public class LikedSongsRepository {
         });
     }
 
-    public LiveData<List<LikedSongs>> getAllLikedSongs(){
+    public void deleteLikedSong(LikedSong song) {
+        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                dao.delete(song);
+            }
+        });
+    }
+
+    public LiveData<List<LikedSong>> getAllLikedSongs(){
         return this.dao.getAllSongs();
+    }
+
+    public LiveData<LikedSong> getLikedSongByName(String name) {
+        return this.dao.getSongByName(name);
     }
 }

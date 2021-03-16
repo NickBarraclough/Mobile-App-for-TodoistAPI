@@ -12,33 +12,36 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.spotifysongsearch.data.LikedSong;
 import com.example.spotifysongsearch.data.LoadingStatus;
 import com.example.spotifysongsearch.data.Results;
 import com.example.spotifysongsearch.data.SongData;
-import com.spotify.android.appremote.api.SpotifyAppRemote;
+import com.google.android.material.navigation.NavigationView;
+//import com.spotify.android.appremote.api.SpotifyAppRemote;
 
 public class MainActivity extends AppCompatActivity
         implements ResultsAdapter.OnSongItemClickListener,
-        SharedPreferences.OnSharedPreferenceChangeListener{
+        SharedPreferences.OnSharedPreferenceChangeListener, NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String CLIENT_ID = BuildConfig.CLIENT_ID;
-    private SpotifyAppRemote mSpotifyAppRemote;
+//    private SpotifyAppRemote mSpotifyAppRemote;
 
+    private RecyclerView forecastListRV;
+    private EditText searchBoxET;
     private ResultsAdapter resultsAdapter;
     private ResultsViewModel resultsViewModel;
 
@@ -46,7 +49,6 @@ public class MainActivity extends AppCompatActivity
 
     private SharedPreferences sharedPreferences;
 
-    private RecyclerView forecastListRV;
     private ProgressBar loadingIndicatorPB;
     private TextView errorMessageTV;
     private Toast errorToast;
@@ -56,15 +58,17 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.forecastListRV = findViewById(R.id.rv_songs_list);
+        this.forecastListRV.setLayoutManager(new LinearLayoutManager(this));
+        this.forecastListRV.setHasFixedSize(true);
+        this.searchBoxET = findViewById(R.id.et_search_box);
+
         this.loadingIndicatorPB = findViewById(R.id.pb_loading_indicator);
         this.errorMessageTV = findViewById(R.id.tv_error_message);
 
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         this.sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
-        this.forecastListRV = findViewById(R.id.rv_songs_list);
-        this.forecastListRV.setLayoutManager(new LinearLayoutManager(this));
-        this.forecastListRV.setHasFixedSize(true);
 
         this.resultsAdapter = new ResultsAdapter(this);
         this.forecastListRV.setAdapter(this.resultsAdapter);
@@ -75,6 +79,8 @@ public class MainActivity extends AppCompatActivity
         this.drawerLayout = findViewById(R.id.drawer_layout);
 //        this.navCityListRV = findViewById(R.id.rv_nav_drawer);
 
+        NavigationView navigationView = findViewById(R.id.nv_nav_drawer);
+        navigationView.setNavigationItemSelectedListener(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -84,9 +90,9 @@ public class MainActivity extends AppCompatActivity
 
 //        this.favoriteLocationsViewModel.getAllLikedSongs().observe(
 //                this,
-//                new Observer<List<LikedSongs>>() {
+//                new Observer<List<LikedSong>>() {
 //                    @Override
-//                    public void onChanged(List<LikedSongs> locationsList) {
+//                    public void onChanged(List<LikedSong> locationsList) {
 //                        favoriteLocationsAdapter.addLocation(locationsList);
 //                    }
 //                }
@@ -132,6 +138,25 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
         );
+
+        Button searchButton = (Button)findViewById(R.id.btn_search);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String searchQuery = searchBoxET.getText().toString();
+                if (!TextUtils.isEmpty(searchQuery)) {
+                    String artist = sharedPreferences.getString(
+                            getString(R.string.pref_artist_key),
+                            ""
+                    );
+                    String genre = sharedPreferences.getString(
+                            getString(R.string.pref_genre_key),
+                            getString(R.string.pref_genre_default_value)
+                    );
+                    resultsViewModel.loadResults(artist, genre, CLIENT_ID);
+                }
+            }
+        });
     }
 
 
@@ -140,7 +165,6 @@ public class MainActivity extends AppCompatActivity
     public void onSongItemClick(SongData songData) {
         Intent intent = new Intent(this, SongDetailActivity.class);
         intent.putExtra(SongDetailActivity.EXTRA_SONG_DATA, songData);
-//        intent.putExtra(SongDetailActivity.EXTRA_SONG_CITY, this.forecastCity);
         startActivity(intent);
     }
 
@@ -202,13 +226,22 @@ public class MainActivity extends AppCompatActivity
         );
     }
 
-//    @Override
-//    public void onFavoriteLocationItemClick(LikedSongs favoriteLocationData) {
-//        Log.d(TAG, "onFavoriteLocationItemClick: Location name - " + favoriteLocationData.getName());
-//        this.drawerLayout.closeDrawers();
-//        SharedPreferences.Editor editor = this.sharedPreferences.edit();
-//        editor.putString(getString(R.string.pref_artist_key), favoriteLocationData.getName());
-//        editor.apply();
-//        loadForecast();
-//    }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        this.drawerLayout.closeDrawers();
+        switch (item.getItemId()) {
+            case R.id.nav_search:
+                return true;
+            case R.id.nav_liked_songs:
+                Intent likedSongsIntent = new Intent(this, LikedSong.class);
+                startActivity(likedSongsIntent);
+                return true;
+            case R.id.nav_settings:
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
+                return true;
+            default:
+                return false;
+        }
+    }
 }
