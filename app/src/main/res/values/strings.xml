@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">SpotifySongSearch</string>
+
+    <string name="loading_error">Unable to fetch song data from Spotify API.  Please check your internet connection.\n\nError message: %1$s</string>
+
+    <string name="song_name">%1$s</string>
+<!--    <string name="forecast_time">%1$tl:%1$tM %1$tp</string>-->
+<!--    <string name="forecast_temp">%1$d°%2$s</string>-->
+<!--    <string name="forecast_pop">%1$d%%</string>-->
+<!--    <string name="forecast_clouds">%1$d%%</string>-->
+<!--    <string name="forecast_wind">%1$d%2$s</string>-->
+<!--    <string name="forecast_date_time">%1$s, %2$s</string>-->
+
+    <string name="action_share_title">Share this song</string>
+    <string name="action_settings_title">Settings</string>
+
+    <string name="share_song_text">Check out this song from Spotify! %1$s by %2$s.</string>
+
+    <!-- Strings for artist preference -->
+    <string name="pref_artist_key" translatable="false">pref_artist</string>
+    <string name="pref_artist_title">Song artist</string>
+
+    <!-- Strings for genre preference -->
+    <string name="pref_genre_key" translatable="false">pref_genre</string>
+    <string name="pref_genre_title">Genre</string>
+    <string name="pref_genre_alternative_value" translatable="false">alternative</string>
+    <string name="pref_genre_country_value" translatable="false">country</string>
+    <string name="pref_genre_rap_value" translatable="false">rap</string>
+    <string name="pref_genre_reggae_value" translatable="false">reggae</string>
+    <string name="pref_genre_rock_value" translatable="false">rock</string>
+    <string name="pref_genre_alternative_entry">Alternative</string>
+    <string name="pref_genre_country_entry">Country</string>
+    <string name="pref_genre_rap_entry">Hip Hop / Rap</string>
+    <string name="pref_genre_reggae_entry">Reggae</string>
+    <string name="pref_genre_rock_entry">Rock</string>
+    <string name="pref_genre_default_value" translatable="false">NULL</string>
+
+
+    <!-- Nav drawer -->
+    <string name="nav_search">Search</string>
+    <string name="nav_liked_songs">Liked Songs</string>
+    <string name="nav_settings">Settings</string>
+
+</resources>
