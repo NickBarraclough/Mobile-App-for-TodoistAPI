@@ -5,9 +5,9 @@
         android:title="@string/nav_search"
         android:icon="@drawable/ic_search"/>
     <item
-        android:id="@+id/nav_liked_songs"
-        android:title="@string/nav_liked_songs"
-        android:icon="@drawable/ic_liked_dark"/>
+        android:id="@+id/nav_completed_projects"
+        android:title="@string/nav_completed_projects"
+        android:icon="@drawable/ic_complete_dark"/>
     <item
         android:id="@+id/nav_settings"
         android:title="@string/nav_settings"

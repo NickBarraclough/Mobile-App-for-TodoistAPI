@@ -2,17 +2,12 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <EditTextPreference
-        android:key="@string/pref_artist_key"
-        android:title="@string/pref_artist_title"
-        app:useSimpleSummaryProvider="true" />
 
-    <ListPreference
-        android:key="@string/pref_genre_key"
-        android:title="@string/pref_genre_title"
-        android:dialogTitle="@string/pref_genre_title"
-        android:entryValues="@array/pref_genre_values"
-        android:entries="@array/pref_genre_entries"
-        android:defaultValue="@string/pref_genre_default_value"
-        app:useSimpleSummaryProvider="true" />
+    <PreferenceCategory android:title="pref_show_incomplete">
+        <CheckBoxPreference
+        android:key="@string/pref_show_incomplete_key"
+        android:title="@string/pref_show_incomplete_title"
+        android:dialogTitle="@string/pref_show_incomplete_title"
+        android:defaultValue="false"/>
+    </PreferenceCategory>
 </PreferenceScreen>

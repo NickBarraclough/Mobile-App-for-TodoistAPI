@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.spotifysongsearch"
+        applicationId "com.example.todolistapp"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 1
@@ -51,7 +51,6 @@ dependencies {
 
     annotationProcessor 'androidx.room:room-compiler:2.2.6'
 
-    implementation project(':spotify-app-remote-release-0.7.1')
     implementation 'com.google.code.gson:gson:2.8.6'
 
 }

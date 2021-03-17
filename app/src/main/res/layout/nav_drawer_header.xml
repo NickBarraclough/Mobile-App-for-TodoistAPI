@@ -10,8 +10,8 @@
         android:layout_width="54dp"
         android:layout_height="54dp"
         android:layout_margin="12dp"
-        android:src="@drawable/spotify_logo"
-        android:contentDescription="@string/spotify_logo" />
+        android:src="@drawable/default_pp"
+        android:contentDescription="@string/profile_photo" />
 
     <TextView
         android:layout_width="wrap_content"
